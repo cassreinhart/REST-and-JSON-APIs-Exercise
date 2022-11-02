@@ -12,7 +12,7 @@ async function getCupcakeData() {
 function cupcakeMarkup(cupcake) {
     //insert html string to dynamically put in UL
     return `
-        <div data-cupcake-id="${cupcake.name}">
+        <div data-cupcake-id="${cupcake.id}">
             <li>
                 ${cupcake.name} | ${cupcake.flavor} | ${cupcake.size} | ${cupcake.rating}
                 <button class="delete"> Remove </button>
@@ -32,7 +32,7 @@ function putCupcakesOnPage(cupcakes) {
     }
 }
 
-async function handleNewCupcakeForm(e) {
+async function handleNewCupcakeForm() {
     // make post request to API to submit new JSON for new cupcake
     let flavor = $('#flavor').val();
     let size = $('#size').val()
@@ -40,7 +40,7 @@ async function handleNewCupcakeForm(e) {
     let image = $('#image').val()
 
     const resp = await axios.post(BASE_URL, 
-        {
+        cupcake = {
             flavor, 
             size,
             rating,
@@ -52,15 +52,20 @@ async function handleNewCupcakeForm(e) {
     $addCupcakeForm.trigger("reset");
 }
 
-$addCupcakeForm.on("submit", handleNewCupcakeForm(e))
+$addCupcakeForm.on("submit", handleNewCupcakeForm())
 
-$cupcakesList.on('click', '.delete', async function(e) {
-    e.preventDefault();
-    let $cupcake = $(e.target).closest('div');
+$cupcakesList.on('click', '.delete', deleteCupcake());
+
+async function deleteCupcake(evt) {
+    evt.preventDefault();
+    let $cupcake = $(evt.target).closest('div');
+    // const id = $(this).data('cupcake-id') //looks for data-cupcake-id
+    // alert(id)
     let cupcakeId = $cupcake.attr("data-cupcake-id");
 
-    await axios.delete(`${BASE_URL}/${cupcakeId}`);
+    await axios.delete(`${BASE_URL}/${id}`);
+    // this.parent.remove();
     $cupcake.remove();
-});
+}
 
 getCupcakeData();

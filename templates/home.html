@@ -5,38 +5,49 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cupcakes!</title>
+    <!-- CSS only -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
     <link rel="stylesheet" href="static/style.css">
 </head>
 <body>
-    <h1>Cupcakes</h1>
-    <div class="cupcakes">
-        <ul>
-            <!-- show cupcakes here -->
-        </ul>
+    <div class="container-fluid">
+        <h1>Cupcakes</h1>
+        <div class="cupcakes container">
+            <ul class="col">
+                {% for cupcake in cupcakes %}
+                <div class="row" data-cupcake-id="{{cupcake.id}}">
+                    <li> {{cupcake.flavor}} | {{cupcake.size}} | {{cupcake.rating}}
+                        <button class="btn delete btn-secondary"> Remove </button>
+                    </li>
+                    <img src="{{cupcake.image}}" alt="{{cupcake.flavor}}" class="img-fluid img-thumbnail rounded mx-auto d-block">
+                </div>
+                {% endfor %}
+            </ul>
+        </div>
+        <hr>
+        <div class="add container">
+            <h2>Add a New Cupcake</h2>
+            <form id="new-cupcake">
+                <div>
+                    <label for="flavor">Flavor: </label>
+                    <input type="text" name="flavor" id="flavor">
+                </div>
+                <div>
+                    <label for="size">Size: </label>
+                    <input type="text" name="size" id="size">
+                </div>
+                <div>
+                    <label for="rating">Rating: </label>
+                    <input type="number" name="rating" id="rating">
+                </div>
+                <div>
+                    <label for="image">Image: </label>
+                    <input type="text" name="image" id="image">
+                </div>
+                <button class="btn btn-info">Add Cupcake</button>
+            </form>
+        </div>
     </div>
-    <div class="add">
-        <h2>Add a New Cupcake</h2>
-        <form id="new-cupcake">
-            <div>
-                <label for="flavor">Flavor: </label>
-                <input type="text" name="flavor" id="flavor">
-            </div>
-            <div>
-                <label for="size">Size: </label>
-                <input type="text" name="size" id="size">
-            </div>
-            <div>
-                <label for="rating">Rating: </label>
-                <input type="number" name="rating" id="rating">
-            </div>
-            <div>
-                <label for="image">Image: </label>
-                <input type="text" name="image" id="image">
-            </div>
-            <button>Add Cupcake</button>
-        </form>
-    </div>
-    
     <script src="https://unpkg.com/jquery"></script>
     <script src="https://unpkg.com/axios/dist/axios.js"></script>
     <script src="static/cupcakes.js"></script>

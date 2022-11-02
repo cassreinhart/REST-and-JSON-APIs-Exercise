@@ -1,0 +1,28 @@
+* {
+    font-family: Arial, Helvetica, sans-serif;
+}
+h1 {
+    text-align: center;
+}
+
+li {
+    margin-top: 20px;
+}
+ul {
+    list-style: none;
+}
+.add div {
+    margin: 10px;
+}
+
+@media screen and (width: 768px) {
+    img {
+        max-width: 52%;
+    }
+}
+
+@media screen and (width: 990px) {
+    img {
+        max-width: 40%;
+    }
+}
