@@ -20,16 +20,16 @@ class Cupcake(db.Model):
 
     def serialize(self):
         """return serialized cupcake"""
-        
+
         return {
-            id: self.id,
-            flavor: self.flavor,
-            size: self.size,
-            rating: self.rating,
-            image: self.image
+            'id': self.id,
+            'flavor': self.flavor,
+            'size': self.size,
+            'rating': self.rating,
+            'image': self.image
         }
     
     def __repr__(self):
         """return string representation of cupcake instance"""
 
-        return f"<Cupcake {id}, flavor={flavor}, size={size}, rating={rating}>"
+        return f"<Cupcake {self.id}, flavor={self.flavor}, size={self.size}, rating={self.rating}>"

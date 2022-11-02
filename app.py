@@ -42,3 +42,28 @@ def create_cupcake():
     db.session.commit()
     response_json = jsonify(cupcake=new_cupcake.serialize())
     return (response_json, 201)
+
+@app.route('/api/cupcakes/<int:cupcake_id>', methods=['PUT'])
+def update_cupcake(cupcake_id):
+    """Update a cupcake or raise 404 if not found
+    Return JSON {cupcake: {id, flavor, size, rating, image}}"""
+
+    cupcake = Cupcake.query.get_or_404(cupcake_id) #get cupcake by id
+
+    cupcake.flavor = request.json.get("flavor", cupcake.flavor) #update cupcake props
+    cupcake.size = request.json.get("size", cupcake.size)
+    cupcake.rating = request.json.get("rating", cupcake.rating)
+    cupcake.image = request.json.get("image", cupcake.image)
+    db.session.commit()
+
+    return jsonify(cupcake = cupcake.serialize())
+
+@app.route('/api/cupcakes/<int:cupcake_id>', methods=['DELETE'])
+def delete_cupcake(cupcake_id):
+    """Delete a cupcake or raise a 404 if it doesn't exist"""
+    cupcake = Cupcake.query.get_or_404(cupcake_id)
+
+    db.session.delete(cupcake)
+    db.session.commit()
+
+    return jsonify(message="Deleted")
